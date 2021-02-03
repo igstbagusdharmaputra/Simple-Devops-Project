@@ -66,9 +66,9 @@ pipeline{
             )
           }
       }
-   
+      
    }
-      post  {
+   post {
          success {
             slackSend (
                color: '#00FF00',
@@ -83,7 +83,7 @@ pipeline{
                tokenCredentialId: 'slack-token'
             )
          } 
-      }
+   }
 }
 def getVersion(){
    def commitHash = sh returnStdout: true, script: 'git rev-parse --short HEAD'
