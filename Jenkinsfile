@@ -56,9 +56,30 @@ pipeline{
             ansiblePlaybook credentialsId: 'tomcat', disableHostKeyChecking: true,  extras: "-e DOCKER_TAG=${DOCKER_TAG}", installation: 'ansible', inventory: 'hosts', playbook: 'deploy.yml'
          }
       }
-      stage('slack notification') {
-         slackSend teamDomain: 'cicd-oao6171', 
-         tokenCredentialId: 'slack-token'
+      stage('Start slack notification') {
+          slackSend (
+             color: '#FFFF00', 
+             message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
+             teamDomain: 'cicd-oao6171', 
+             tokenCredentialId: 'slack-token'
+          )
+        
+      }
+      post  {
+         success {
+            slackSend (
+               color: '#00FF00',
+               message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
+               teamDomain: 'cicd-oao6171', 
+               tokenCredentialId: 'slack-token'
+            )
+            hipchatSend (
+               color: 'GREEN', notify: true,
+               message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
+               teamDomain: 'cicd-oao6171', 
+               tokenCredentialId: 'slack-token'
+            )
+         } 
       }
    }
 }
