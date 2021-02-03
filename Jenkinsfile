@@ -45,9 +45,9 @@ pipeline{
       }
       stage('Docker Login'){
          steps{
-            withCredentials([string(credentialsId:'docker-hub',variable:'dockerpassword')]){
-               sh 'docker login -u dharmatkj -p ${dockerpassword}'
-            }
+            // withCredentials([string(credentialsId:'docker-hub',variable:'dockerpassword')]){
+            //    sh 'sudo docker login -u dharmatkj -p ${dockerpassword}'
+            // }
             sh 'docker push dharmatkj/maven:${env.DOCKER_TAG}'
          }
       }
