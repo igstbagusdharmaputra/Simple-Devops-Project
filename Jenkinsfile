@@ -78,10 +78,12 @@ pipeline{
             )  
          }
          failure {
-               color: '#00FF00',
-               message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})",
-               teamDomain: 'cicd-oao6171', 
-               tokenCredentialId: 'slack-token'
+               slackSend(
+                  color: '#00FF00',
+                  message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})",
+                  teamDomain: 'cicd-oao6171', 
+                  tokenCredentialId: 'slack-token'
+               )
             )  
          }  
    }
