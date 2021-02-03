@@ -57,13 +57,14 @@ pipeline{
          }
       }
       stage('Start slack notification') {
-          slackSend (
-             color: '#FFFF00', 
-             message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})",
-             teamDomain: 'cicd-oao6171', 
-             tokenCredentialId: 'slack-token'
-          )
-        
+            steps{
+               slackSend (
+               color: '#FFFF00', 
+               message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})",
+               teamDomain: 'cicd-oao6171', 
+               tokenCredentialId: 'slack-token'
+            )
+          }
       }
       post  {
          success {
