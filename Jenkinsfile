@@ -56,6 +56,10 @@ pipeline{
             ansiblePlaybook credentialsId: 'tomcat', disableHostKeyChecking: true,  extras: "-e DOCKER_TAG=${DOCKER_TAG}", installation: 'ansible', inventory: 'hosts', playbook: 'deploy.yml'
          }
       }
+      stage('slack notification') {
+         slackSend teamDomain: 'cicd-oao6171', 
+         tokenCredentialId: 'slack-token'
+      }
    }
 }
 def getVersion(){
