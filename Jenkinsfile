@@ -43,7 +43,7 @@ pipeline{
             sh 'docker build -t dharmatkj/maven:${env.DOCKER_TAG} .'
          }
       }
-      stage('Docker Login'){
+      stage('Docker Push'){
          steps{
             // withCredentials([string(credentialsId:'docker-hub',variable:'dockerpassword')]){
             //    sh 'sudo docker login -u dharmatkj -p ${dockerpassword}'
