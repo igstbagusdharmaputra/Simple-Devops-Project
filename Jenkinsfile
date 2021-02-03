@@ -59,7 +59,7 @@ pipeline{
       stage('Start slack notification') {
           slackSend (
              color: '#FFFF00', 
-             message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
+             message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})",
              teamDomain: 'cicd-oao6171', 
              tokenCredentialId: 'slack-token'
           )
@@ -69,13 +69,13 @@ pipeline{
          success {
             slackSend (
                color: '#00FF00',
-               message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
+               message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})",
                teamDomain: 'cicd-oao6171', 
                tokenCredentialId: 'slack-token'
             )
             hipchatSend (
                color: 'GREEN', notify: true,
-               message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
+               message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})",
                teamDomain: 'cicd-oao6171', 
                tokenCredentialId: 'slack-token'
             )
