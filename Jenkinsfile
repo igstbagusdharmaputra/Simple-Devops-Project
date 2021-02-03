@@ -8,7 +8,6 @@ node{
       sh "mvn package"
    }
    stage('slack notification') {
-     color: 'good', 
      slackSend teamDomain: 'cicd-oao6171', 
      tokenCredentialId: 'slack-token'
    }
