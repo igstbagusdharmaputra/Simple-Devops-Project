@@ -7,5 +7,10 @@ node{
       //def mvnHome =  tool name: 'maven-3', type: 'maven'   
       sh "mvn package"
    }
+   stage('slack notification') {
+     color: 'good', 
+     slackSend teamDomain: 'cicd-oao6171', 
+     tokenCredentialId: 'slack-token'
+   }
    
 }
