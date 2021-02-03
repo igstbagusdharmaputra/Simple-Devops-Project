@@ -53,7 +53,7 @@ pipeline{
       }
       stage('Docker Deploy'){
          steps{
-            ansiblePlaybook credentialsId: 'tomcat', disableHostKeyChecking: true, extras: 'DOCKER_TAG="${DOCKER_TAG}"', installation: 'ansible', inventory: 'hosts', playbook: 'deploy.yml'
+            ansiblePlaybook credentialsId: 'tomcat', disableHostKeyChecking: true, extras: 'DOCKER_TAG="${DOCKER_TAG}"', installation: 'ansible', inventory: 'ansible/hosts', playbook: 'ansible/deploy.yml'
          }
       }
    }
