@@ -1,0 +1,35 @@
+- hosts: dev
+  tasks:
+          - name: install req
+            apt: name={{ item }} state=latest update_cache=yes
+            loop: [ 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools']
+
+          - name: add docker key
+            apt_key:
+                    url: https://download.docker.com/linux/ubuntu/gpg
+                    state: present
+
+          - name: add docker repo
+            apt_repository:
+                    repo: deb https://download.docker.com/linux/ubuntu bionic stable
+                    state: present
+
+          - name: update apt and install docker
+            apt: update_cache=yes name=docker-ce state=latest
+
+          - name: install python docker module
+            pip:
+                    name: docker
+          - name: add group to docker
+            user:
+                 name: ubuntu
+                 shell: /bin/bash
+                 groups: docker
+                 append: yes
+          - name: start container
+            docker_container:
+                  name: dharmatkj
+                  image: "dharmatkj/maven:${DOCKER_TAG}"
+                  state: started
+                  published_ports:
+                     - 0.0.0.0:8080:8080

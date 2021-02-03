@@ -51,6 +51,11 @@ pipeline{
             sh 'docker push dharmatkj/maven:${DOCKER_TAG}'
          }
       }
+      stage('Docker Deploy'){
+         steps{
+            ansiblePlaybook credentialsId: 'tomcat', disableHostKeyChecking: true, extras: 'DOCKER_TAG="${DOCKER_TAG}"', installation: 'ansible', inventory: 'hosts', playbook: 'deploy.yml'
+         }
+      }
    }
 }
 def getVersion(){
