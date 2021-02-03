@@ -40,7 +40,7 @@ pipeline{
       }
       stage('Docker Build'){
          steps{
-            sh 'docker build -t dharmatkj/maven:${env.DOCKER_TAG} .'
+            sh 'docker build -t dharmatkj/maven:${DOCKER_TAG} .'
          }
       }
       stage('Docker Push'){
@@ -48,7 +48,7 @@ pipeline{
             withCredentials([string(credentialsId:'docker-hub',variable:'dockerpassword')]){
                sh 'docker login -u dharmatkj -p ${dockerpassword}'
             }
-            sh 'docker push dharmatkj/maven:${env.DOCKER_TAG}'
+            sh 'docker push dharmatkj/maven:${DOCKER_TAG}'
          }
       }
    }
