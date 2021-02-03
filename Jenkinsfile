@@ -23,6 +23,9 @@ pipeline{
    tools {
       maven 'maven3'
    }
+   environment {
+      DOCKER_TAG = getVersion()
+   }
    stages {
       stage ('SCM'){
          steps{
@@ -35,5 +38,14 @@ pipeline{
             sh 'mvn clean package'
          }
       }
+      stage('Docker Build'){
+         steps{
+            sh 'docker build -t dharmatkj/maven:${DOCKER_TAG}'
+         }
+      }
    }
+}
+def getVersion(){
+   def commitHash = sh returnStdout: true, script: 'git rev-parse --short HEAD'
+   return commitHash
 }
