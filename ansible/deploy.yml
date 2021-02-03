@@ -1,4 +1,5 @@
 - hosts: dev
+  become: yes
   tasks:
           - name: install req
             apt: name={{ item }} state=latest update_cache=yes
