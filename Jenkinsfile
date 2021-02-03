@@ -12,5 +12,4 @@ node{
          sh 'scp -o StrictHostKeyChecking=no target/*.war ubuntu@172.31.52.35:/opt/tomcat/latest/webapps/'
       }
    }
-   
 }
